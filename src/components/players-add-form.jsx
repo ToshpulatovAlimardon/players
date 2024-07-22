@@ -1,5 +1,3 @@
-import React from "react";
-
 const PlayersAddForm = () => {
   return (
     <div className="px-4 py-6 bg-white rounded-md shadow-lg bg-gradient-to-t from-cyan-500 to-transparent bg-opacity-10">
