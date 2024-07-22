@@ -3,7 +3,7 @@ import React from "react";
 const PlayersAddForm = () => {
   return (
     <div className="px-4 py-6 bg-white rounded-md shadow-lg bg-gradient-to-t from-cyan-500 to-transparent bg-opacity-10">
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col space-y-3">
         <div>
           <label htmlFor="name" className="text-2xl">
             New football player
@@ -45,6 +45,10 @@ const PlayersAddForm = () => {
             <option value="America">America</option>
           </select>
         </div>
+
+        <button className="py-2 px-4 w-fit rounded-md ml-auto bg-gradient-to-r from-blue-500 to-blue-950 text-white hover:scale-105 transition-all font-medium">
+          Add player
+        </button>
       </div>
     </div>
   );
