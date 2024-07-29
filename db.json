@@ -17,13 +17,40 @@
       "name": "Odil Akhemdov",
       "country": "Uzbekistan",
       "continent": "Asia"
+    },
+    {
+      "id": "12e53ec5-5fed-4ced-996b-56421418bed5",
+      "name": "Ali",
+      "country": "Uzb",
+      "continent": "Asia"
+    },
+    {
+      "id": "0ee44d8d-ff9d-4380-9932-c0e607fd057a",
+      "name": "Ali",
+      "country": "Uzb",
+      "continent": "Asia"
     }
   ],
   "filters": [
-    { "id": "all", "label": "All" },
-    { "id": "europe", "label": "Europe" },
-    { "id": "asia", "label": "Asia" },
-    { "id": "africa", "label": "Africa" },
-    { "id": "america", "label": "America" }
+    {
+      "id": "all",
+      "label": "All"
+    },
+    {
+      "id": "europe",
+      "label": "Europe"
+    },
+    {
+      "id": "asia",
+      "label": "Asia"
+    },
+    {
+      "id": "africa",
+      "label": "Africa"
+    },
+    {
+      "id": "america",
+      "label": "America"
+    }
   ]
 }

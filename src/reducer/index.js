@@ -17,11 +17,16 @@ const reducer = (state = initialState, action) => {
         players: action.payload,
         playersLoadingStatus: "success",
       };
-    case 'PLAYERS_FETCHING_ERROR':
+    case "PLAYERS_FETCHING_ERROR":
       return {
         ...state,
-        playersLoadingStatus: 'error',
-      }
+        playersLoadingStatus: "error",
+      };
+    case "PLAYER_CREATED":
+      return {
+        ...state,
+        players: [...state.players, action.payload],
+      };
     default:
       return state;
   }

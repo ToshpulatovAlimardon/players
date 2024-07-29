@@ -16,3 +16,10 @@ export const playersFetchingError = () => {
     type: "PLAYERS_FETCHING_ERROR",
   };
 };
+
+export const playersCreated = (player) => {
+  return {
+    type: "PLAYER_CREATED",
+    payload: player,
+  };
+};
