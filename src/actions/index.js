@@ -23,3 +23,10 @@ export const playersCreated = (player) => {
     payload: player,
   };
 };
+
+export const playerDeleted = (id) => {
+  return {
+    type: "PLAYER_DELETED",
+    payload: id,
+  };
+};

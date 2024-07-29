@@ -27,6 +27,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         players: [...state.players, action.payload],
       };
+    case "PLAYER_DELETED":
+      return {
+        ...state,
+        players: state.players.filter((player) => player.id !== action.payload),
+      };
     default:
       return state;
   }

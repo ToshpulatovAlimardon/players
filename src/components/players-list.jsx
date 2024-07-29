@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  playerDeleted,
   playersFetched,
   playersFetching,
   playersFetchingError,
@@ -24,6 +25,16 @@ const PlayersList = () => {
       .catch(() => dispatch(playersFetchingError()));
   }, []);
 
+  const onDelete = useCallback(
+    (id) => {
+      request(`http://localhost:8080/players${id}`, "DELETE")
+        .then((res) => console.log(res, "Successfully deleted"))
+        .then(dispatch(playerDeleted(id)))
+        .catch((e) => console.log(e));
+    },
+    [request]
+  );
+
   if (playersLoadingStatus === "loading") {
     return <Spinner classNames={"w-8 h-8 block mx-auto text-white"} />;
   } else if (playersLoadingStatus === "error") {
@@ -36,7 +47,7 @@ const PlayersList = () => {
     }
 
     return players.map(({ id, ...props }) => (
-      <PlayersListItem key={id} {...props} />
+      <PlayersListItem key={id} onDelete={() => onDelete(id)} {...props} />
     ));
   };
 
