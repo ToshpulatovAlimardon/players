@@ -1,56 +1,55 @@
 {
   "players": [
     {
-      "id": "1",
-      "name": "Zinedine Zidane",
+      "id": "af878f50-aa78-4704-bea3-d61a7f1b6e9a",
+      "name": "Odil Akhmedov",
+      "country": "Uzb",
+      "continent": "Asia"
+    },
+    {
+      "id": "ca647c16-d591-4542-ab66-4b79885afd5d",
+      "name": "Mohammad Salah",
+      "country": "Egypt",
+      "continent": "Africa"
+    },
+    {
+      "id": "991793be-2d79-4f43-bd8a-b945cd45fb4d",
+      "name": "Zidane",
       "country": "France",
       "continent": "Europe"
     },
     {
-      "id": "2",
-      "name": " Nayef Aguerd",
-      "country": "Morocco",
-      "continent": "Africa"
-    },
-    {
-      "id": "3",
-      "name": "Odil Akhemdov",
-      "country": "Uzbekistan",
-      "continent": "Asia"
-    },
-    {
-      "id": "12e53ec5-5fed-4ced-996b-56421418bed5",
-      "name": "Ali",
-      "country": "Uzb",
-      "continent": "Asia"
-    },
-    {
-      "id": "0ee44d8d-ff9d-4380-9932-c0e607fd057a",
-      "name": "Ali",
-      "country": "Uzb",
-      "continent": "Asia"
+      "id": "4365221b-321a-4798-959d-6c05452524d3",
+      "name": "Samar",
+      "country": "Virgina",
+      "continent": "America"
     }
   ],
   "filters": [
     {
       "id": "all",
-      "label": "All"
+      "label": "All",
+      "classes": "bg-gradient-to-r from-black to-slate-600 rounded-l-md"
     },
     {
       "id": "europe",
-      "label": "Europe"
+      "label": "Europe",
+      "classes": "bg-gradient-to-r from-blue-500 to-blue-700"
     },
     {
       "id": "asia",
-      "label": "Asia"
+      "label": "Asia",
+      "classes": "bg-gradient-to-r from-green-500 to-green-700"
     },
     {
       "id": "africa",
-      "label": "Africa"
+      "label": "Africa",
+      "classes": "bg-gradient-to-r from-yellow-500 to-yellow-700"
     },
     {
       "id": "america",
-      "label": "America"
+      "label": "America",
+      "classes": "bg-gradient-to-r from-cyan-500 to-cyan-700 rounded-r-md"
     }
   ]
 }

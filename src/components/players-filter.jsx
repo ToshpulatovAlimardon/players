@@ -1,25 +1,58 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  activeFilterChanged,
+  filtersFetched,
+  filtersFetching,
+  filtersFetchingError,
+} from "../actions";
+import { useHttp } from "../hooks/use-http";
+import Spinner from "./spinner";
+
 const PlayersFilter = () => {
+  const { filters, filtersLoadingStatus, activeFilter } = useSelector(
+    (state) => state
+  );
+  const dispatch = useDispatch();
+  const { request } = useHttp();
+
+  useEffect(() => {
+    dispatch(filtersFetching());
+
+    request("http://localhost:8080/filters")
+      .then((data) => dispatch(filtersFetched(data)))
+      .catch(() => dispatch(filtersFetchingError()));
+  }, []);
+
+  if (filtersLoadingStatus === "loading") {
+    return <Spinner classNames={"w-8 h-8 block mx-auto text-white"} />;
+  } else if (filtersLoadingStatus === "error") {
+    return <span className="text-red-500">Something went wrong</span>;
+  }
+
+  const renderFilters = () => {
+    if (!filters.length) {
+      return <span className="text-red-500">Filters not found</span>;
+    }
+
+    return filters.map(({ id, label, classes }) => (
+      <button
+        key={id}
+        className={`py-2 px-4 text-white hover:opacity-90 transition-all ${classes} ${
+          activeFilter === label && "text-black font-bold"
+        }`}
+        onClick={() => dispatch(activeFilterChanged(label))}
+      >
+        {label}
+      </button>
+    ));
+  };
+
   return (
     <div className="px-4 py-6 bg-white rounded-md shadow-lg bg-gradient-to-b from-cyan-500 to-transparent bg-opacity-10 mt-4">
       <h1 className="text-xl font-bold">Filter players by continent</h1>
 
-      <div className="flex mt-2">
-        <button className="py-2 px-4 bg-gradient-to-r from-black to-slate-600 text-white rounded-l-md hover:opacity-90 transition-all">
-          All
-        </button>
-        <button className="py-2 px-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white hover:opacity-90 transition-all">
-          Europe
-        </button>
-        <button className="py-2 px-4 bg-gradient-to-r from-green-500 to-green-700 text-white hover:opacity-90 transition-all">
-          Asia
-        </button>
-        <button className="py-2 px-4 bg-gradient-to-r from-yellow-500 to-yellow-700 text-white hover:opacity-90 transition-all">
-          Africa
-        </button>
-        <button className="py-2 px-4 bg-gradient-to-r from-cyan-500 to-cyan-700 text-white hover:opacity-90 transition-all rounded-r-md">
-          America
-        </button>
-      </div>
+      <div className="flex mt-2">{renderFilters()}</div>
     </div>
   );
 };

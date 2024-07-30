@@ -13,7 +13,9 @@ import PlayersListItem from "./players-list-item";
 import Spinner from "./spinner";
 
 const PlayersList = () => {
-  const { players, playersLoadingStatus } = useSelector((state) => state);
+  const { filteredPlayers, playersLoadingStatus } = useSelector(
+    (state) => state
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -27,7 +29,7 @@ const PlayersList = () => {
 
   const onDelete = useCallback(
     (id) => {
-      request(`http://localhost:8080/players${id}`, "DELETE")
+      request(`http://localhost:8080/players/${id}`, "DELETE")
         .then((res) => console.log(res, "Successfully deleted"))
         .then(dispatch(playerDeleted(id)))
         .catch((e) => console.log(e));
@@ -42,11 +44,11 @@ const PlayersList = () => {
   }
 
   const renderPlayers = () => {
-    if (!players.length) {
+    if (!filteredPlayers.length) {
       return <Empty />;
     }
 
-    return players.map(({ id, ...props }) => (
+    return filteredPlayers.map(({ id, ...props }) => (
       <PlayersListItem key={id} onDelete={() => onDelete(id)} {...props} />
     ));
   };

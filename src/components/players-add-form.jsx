@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { useHttp } from "../hooks/use-http";
 import { playersCreated } from "../actions";
+import { useHttp } from "../hooks/use-http";
 
 const PlayersAddForm = () => {
+  const { filters, filtersLoadingStatus } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -26,6 +27,26 @@ const PlayersAddForm = () => {
       .catch((e) => console.log(e));
   };
 
+  const renderFilters = () => {
+    if (filtersLoadingStatus === "loading") {
+      return <option>Loading...</option>;
+    } else if (filtersLoadingStatus === "error") {
+      return <option>Something went wrong</option>;
+    }
+
+    if (filters && filters.length > 0) {
+      return filters.map(({ id, label }) => {
+        if (id == "all") return;
+
+        return (
+          <option key={id} value={label}>
+            {label}
+          </option>
+        );
+      });
+    }
+  };
+
   return (
     <div className="px-4 py-6 bg-white rounded-md shadow-lg bg-gradient-to-t from-cyan-500 to-transparent bg-opacity-10">
       <form onSubmit={onSubmit}>
@@ -37,7 +58,7 @@ const PlayersAddForm = () => {
             <input
               type="text"
               className="block w-full py-2 px-4 rounded-md mt-1"
-              placeholder="Muhammad Salah"
+              placeholder="Mohammad Salah"
               name="name"
               required
             />
@@ -65,10 +86,7 @@ const PlayersAddForm = () => {
               name="continent"
               required
             >
-              <option value="Europe">Europe</option>
-              <option value="Asia">Asia</option>
-              <option value="Africa">Africa</option>
-              <option value="America">America</option>
+              {renderFilters()}
             </select>
           </div>
 
