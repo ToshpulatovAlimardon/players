@@ -6,6 +6,14 @@ export const fetchPlayers = (request) => (dispatch) => {
     .catch(() => dispatch(playersFetchingError));
 };
 
+export const fetchFilters = (request) => (dispatch) => {
+  dispatch(filtersFetching);
+
+  request("http://localhost:8080/filters")
+    .then((data) => dispatch(filtersFetched(data)))
+    .catch(() => dispatch(filtersFetchingError));
+};
+
 export const playersFetching = () => {
   return {
     type: "PLAYERS_FETCHING",
