@@ -1,8 +1,9 @@
-import { legacy_createStore } from "redux";
-import reducer from "../reducer";
+import { combineReducers, legacy_createStore } from "redux";
+import players from "../reducers/players";
+import filters from "../reducers/filters";
 
 const store = legacy_createStore(
-  reducer,
+  combineReducers({ players, filters }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

@@ -4,7 +4,9 @@ import { playersCreated } from "../actions";
 import { useHttp } from "../hooks/use-http";
 
 const PlayersAddForm = () => {
-  const { filters, filtersLoadingStatus } = useSelector((state) => state);
+  const { filters, filtersLoadingStatus } = useSelector(
+    (state) => state.filters
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 

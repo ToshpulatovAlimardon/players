@@ -11,20 +11,26 @@ import Empty from "./empty";
 import Error from "./error";
 import PlayersListItem from "./players-list-item";
 import Spinner from "./spinner";
+import { createSelector } from "@reduxjs/toolkit";
 
 const PlayersList = () => {
-  const filteredPlayers = useSelector((state) => {
-    if (state.activeFilter === "All") {
-      return state.players;
-    } else {
-      return state.players.filter(
-        (player) => player.continent === state.activeFilter
-      );
+  const filteredPlayersSelector = createSelector(
+    (state) => state.filters.activeFilter,
+    (state) => state.players.players,
+    (filter, players) => {
+      if (filter === "All") {
+        return players;
+      } else {
+        return players.filter((player) => player.continent === filter);
+      }
     }
-  });
-  const playersLoadingStatus = useSelector(
-    (state) => state.playersLoadingStatus
   );
+
+  const filteredPlayers = useSelector(filteredPlayersSelector);
+  const playersLoadingStatus = useSelector(
+    (state) => state.players.playersLoadingStatus
+  );
+
   const dispatch = useDispatch();
   const { request } = useHttp();
 
