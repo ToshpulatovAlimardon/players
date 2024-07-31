@@ -18,12 +18,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         players: action.payload,
-        filteredPlayers:
-          state.activeFilter === "All"
-            ? state.players
-            : state.players.filter(
-                (player) => player.continent === state.activeFilter
-              ),
         playersLoadingStatus: "success",
       };
     case "PLAYERS_FETCHING_ERROR":
@@ -48,42 +42,19 @@ const reducer = (state = initialState, action) => {
         filtersLoadingStatus: "error",
       };
     case "PLAYER_CREATED":
-      const newPlayers = [...state.players, action.payload];
-
       return {
         ...state,
-        players: newPlayers,
-        filteredPlayers:
-          state.activeFilter === "All"
-            ? newPlayers
-            : newPlayers.filter(
-                (player) => player.continent === state.activeFilter
-              ),
+        players: [...state.players, action.payload],
       };
     case "PLAYER_DELETED":
-      const deletedPlayers = state.players.filter(
-        (player) => player.id !== action.payload
-      );
       return {
         ...state,
-        players: deletedPlayers,
-        filteredPlayers:
-          state.activeFilter === "All"
-            ? deletedPlayers
-            : deletedPlayers.filter(
-                (player) => player.continent === state.activeFilter
-              ),
+        players: state.players.filter((player) => player.id !== action.payload),
       };
     case "ACTIVE_FILTER_CHANGED":
       return {
         ...state,
         activeFilter: action.payload,
-        filteredPlayers:
-          action.payload === "All"
-            ? state.players
-            : state.players.filter(
-                (player) => player.continent === action.payload
-              ),
       };
     default:
       return state;

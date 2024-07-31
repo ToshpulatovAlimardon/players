@@ -13,8 +13,17 @@ import PlayersListItem from "./players-list-item";
 import Spinner from "./spinner";
 
 const PlayersList = () => {
-  const { filteredPlayers, playersLoadingStatus } = useSelector(
-    (state) => state
+  const filteredPlayers = useSelector((state) => {
+    if (state.activeFilter === "All") {
+      return state.players;
+    } else {
+      return state.players.filter(
+        (player) => player.continent === state.activeFilter
+      );
+    }
+  });
+  const playersLoadingStatus = useSelector(
+    (state) => state.playersLoadingStatus
   );
   const dispatch = useDispatch();
   const { request } = useHttp();
