@@ -1,12 +1,7 @@
-import {
-  applyMiddleware,
-  combineReducers,
-  compose,
-  legacy_createStore,
-} from "redux";
 import players from "../reducers/players";
 import filters from "../reducers/filters";
 import { thunk } from "redux-thunk";
+import { configureStore } from "@reduxjs/toolkit";
 
 const stringMiddleware = () => (next) => (action) => {
   if (typeof action === "string") {
@@ -16,12 +11,11 @@ const stringMiddleware = () => (next) => (action) => {
   return next(action);
 };
 
-const store = legacy_createStore(
-  combineReducers({ players, filters }),
-  compose(
-    applyMiddleware(stringMiddleware, thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+const store = configureStore({
+  reducer: { players, filters },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(stringMiddleware),
+  devTools: true,
+});
 
 export default store;
