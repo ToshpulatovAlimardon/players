@@ -35,7 +35,7 @@ const PlayersList = () => {
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(playersFetching());
+    dispatch("PLAYERS_FETCHING");
 
     request("http://localhost:8080/players")
       .then((data) => dispatch(playersFetched(data)))
