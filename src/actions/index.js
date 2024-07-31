@@ -1,3 +1,11 @@
+export const fetchPlayers = (request) => (dispatch) => {
+  dispatch(playersFetching);
+
+  request("http://localhost:8080/players")
+    .then((data) => dispatch(playersFetched(data)))
+    .catch(() => dispatch(playersFetchingError));
+};
+
 export const playersFetching = () => {
   return {
     type: "PLAYERS_FETCHING",

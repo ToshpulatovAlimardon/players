@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  fetchPlayers,
   playerDeleted,
   playersFetched,
   playersFetching,
@@ -35,11 +36,7 @@ const PlayersList = () => {
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch("PLAYERS_FETCHING");
-
-    request("http://localhost:8080/players")
-      .then((data) => dispatch(playersFetched(data)))
-      .catch(() => dispatch(playersFetchingError()));
+    dispatch(fetchPlayers(request));
   }, []);
 
   const onDelete = useCallback(
