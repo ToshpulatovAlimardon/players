@@ -1,7 +1,6 @@
-import players from "../reducers/players";
-import filters from "../reducers/filters";
-import { thunk } from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
+import filters from "../slices/filters-slice";
+import players from "../slices/players-slice";
 
 const stringMiddleware = () => (next) => (action) => {
   if (typeof action === "string") {

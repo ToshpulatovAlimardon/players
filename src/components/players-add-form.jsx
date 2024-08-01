@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { playersCreated } from "../actions";
 import { useHttp } from "../hooks/use-http";
+import { playersCreated } from "../slices/players-slice";
 
 const PlayersAddForm = () => {
   const { filters, filtersLoadingStatus } = useSelector(
