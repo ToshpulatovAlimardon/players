@@ -1,24 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useHttp } from "../hooks/use-http";
 
 const initialState = {
   players: [],
   playersLoadingStatus: "success",
 };
 
+export const fetchPlayers = createAsyncThunk(
+  "players/fetchPlayers",
+  async () => {
+    const { request } = useHttp();
+    return await request("http://localhost:8080/players");
+  }
+);
+
 const playersSlice = createSlice({
   name: "players",
   initialState,
   reducers: {
-    playersFetching: (state) => {
-      state.playersLoadingStatus = "loading";
-    },
-    playersFetched: (state, action) => {
-      (state.players = action.payload),
-        (state.playersLoadingStatus = "success");
-    },
-    playersFetchingError: (state) => {
-      state.playersLoadingStatus = "error";
-    },
     playersCreated: (state, action) => {
       state.players.push(action.payload);
     },
@@ -28,12 +27,25 @@ const playersSlice = createSlice({
       );
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchPlayers.pending, (state) => {
+        state.playersLoadingStatus = "loading";
+      })
+      .addCase(fetchPlayers.fulfilled, (state, action) => {
+        (state.players = action.payload),
+          (state.playersLoadingStatus = "success");
+      })
+      .addCase(fetchPlayers.rejected, (state) => {
+        state.playersLoadingStatus = "error";
+      })
+      .addDefaultCase(() => {});
+  },
 });
 
 const { actions, reducer } = playersSlice;
 
 export default reducer;
-
 export const {
   playerDeleted,
   playersCreated,

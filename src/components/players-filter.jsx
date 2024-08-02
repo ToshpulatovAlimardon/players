@@ -1,19 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFilters } from "../actions";
-import { useHttp } from "../hooks/use-http";
+import { activeFilterChanged, fetchFilters } from "../slices/filters-slice";
 import Spinner from "./spinner";
-import { activeFilterChanged } from "../slices/filters-slice";
 
 const PlayersFilter = () => {
   const { filters, filtersLoadingStatus, activeFilter } = useSelector(
     (state) => state.filters
   );
   const dispatch = useDispatch();
-  const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(fetchFilters(request));
+    dispatch(fetchFilters());
   }, []);
 
   if (filtersLoadingStatus === "loading") {

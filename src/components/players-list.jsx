@@ -1,13 +1,12 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPlayers } from "../actions";
 import { useHttp } from "../hooks/use-http";
 import Empty from "./empty";
 import Error from "./error";
 import PlayersListItem from "./players-list-item";
 import Spinner from "./spinner";
 import { createSelector } from "@reduxjs/toolkit";
-import { playerDeleted } from "../slices/players-slice";
+import { fetchPlayers, playerDeleted } from "../slices/players-slice";
 
 const PlayersList = () => {
   const filteredPlayersSelector = createSelector(
@@ -31,7 +30,7 @@ const PlayersList = () => {
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(fetchPlayers(request));
+    dispatch(fetchPlayers());
   }, []);
 
   const onDelete = useCallback(
